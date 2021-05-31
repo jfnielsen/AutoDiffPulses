@@ -6,7 +6,12 @@ from torch import tensor
 
 import adpulses
 
+# reload adpulses while modifying optimizers module for 3d spiral optimization
+import importlib
+importlib.reload(adpulses)
+
 from adpulses import io, optimizers, metrics, penalties
+
 
 if __name__ == "__main__":
     import sys
@@ -63,8 +68,14 @@ if __name__ == "__main__":
     kw = {k: arg[k] for k in ('b1Map_', 'niter', 'niter_gr', 'niter_rf',
                               'doRelax')}
 
-    pulse, optInfos = optimizers.arctanLBFGS(target, cube, pulse,
-                                             fn_err, fn_pen, eta=eta, **kw)
+    if False:
+        # optimize spiral shape parameters
+        pulse, optInfos = optimizers.arctanLBFGS(target, cube, pulse,
+                                                 fn_err, fn_pen, eta=eta, **kw)
+    else:
+        # optimize directly on gradient samples (for fine tuning)
+        pulse, optInfos = optimizers.arctanLBFGS_orig(target, cube, pulse,
+                                                      fn_err, fn_pen, eta=eta, **kw)
 
     # %% saving
     io.p2m(p2mName, pulse, {'optInfos': optInfos})

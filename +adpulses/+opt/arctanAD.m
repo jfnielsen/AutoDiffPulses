@@ -61,7 +61,10 @@ end
 save(m2pName, '-v7', 'target', 'cube_st', 'pulse_st', 'arg')
 
 [p, ~, ~] = fileparts(mfilename('fullpath')); % .m/.py must be in the same path.
-pyfile = [p, '/arctanAD.py'];
+if mode == 'spoptim'  % optimize 3d spiral shape parameters
+    pyfile = [p, '/arctanAD_sp3d.py'];
+else
+    pyfile = [p, '/arctanAD.py'];
 
 cmd = ['python ', pyfile, ' ', m2pName, ' ', p2mName, ' ', num2str(gpuID)];
 Err = system(cmd);  % python call
