@@ -55,6 +55,11 @@ def err_ml2xy(Mr_: Tensor, Md_: Tensor, w_: Optional[Tensor] = None) -> Tensor:
     *OUTPUTS*
     - `err` (1,)
     """
+    lam1 = 1.0
+    lam2 = 0.25
     Me_ = Mr_[..., :2].norm(dim=-1) - Md_[..., :2].norm(dim=-1)
-    err = (Me_ if w_ is None else Me_*w_).norm()**2
+    errmag = (Me_ if w_ is None else Me_*w_).norm()**2
+    Me_ = (Mr_[..., :2] - Md_[..., :2])
+    errcplx = (Me_ if w_ is None else Me_*w_[..., None]).norm()**2
+    err = lam1 * errmag + lam2 * errcplx
     return err
