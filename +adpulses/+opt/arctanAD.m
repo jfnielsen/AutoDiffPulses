@@ -66,6 +66,7 @@ if strcmp(mode, 'spoptim')  % optimize 3d spiral shape parameters
     pyfile = [p, '/arctanAD_sp3d.py'];
 else
     pyfile = [p, '/arctanAD.py'];
+end
 
 cmd = ['python ', pyfile, ' ', m2pName, ' ', p2mName, ' ', num2str(gpuID)];
 Err = system(cmd);  % python call
