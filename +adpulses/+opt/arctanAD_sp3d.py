@@ -68,7 +68,7 @@ if __name__ == "__main__":
     kw = {k: arg[k] for k in ('b1Map_', 'niter', 'niter_gr', 'niter_rf',
                               'doRelax')}
 
-    if False:
+    if True:
         # optimize spiral shape parameters
         pulse, optInfos = optimizers.arctanLBFGS(target, cube, pulse,
                                                  fn_err, fn_pen, eta=eta, **kw)

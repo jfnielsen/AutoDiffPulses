@@ -1,4 +1,4 @@
-function [pulse_o, optInfos] = arctanAD(target, cube, pulse_i, varargin)
+function [pulse_o, optInfos] = arctanAD(target, cube, pulse_i, mode, varargin)
 % This fn nastily relies on file save/read to pass variables to python calls.
 % Blame Matlab/Python poor interoperability.
 % This function is basically a python function wrapper.
@@ -9,6 +9,7 @@ function [pulse_o, optInfos] = arctanAD(target, cube, pulse_i, varargin)
 %   .weight (*Nd)
 % - cube mrphy.@SpinCube obj
 % - pulse_i mrphy.@Pulse obj
+% - mode: 'spoptim' or 'rasteroptim'
 %OPTIONAL
 % - b1Map (*Nd, nCoils)
 % - niter (1,), dflt 10, #iteration in autodiff
@@ -61,7 +62,7 @@ end
 save(m2pName, '-v7', 'target', 'cube_st', 'pulse_st', 'arg')
 
 [p, ~, ~] = fileparts(mfilename('fullpath')); % .m/.py must be in the same path.
-if mode == 'spoptim'  % optimize 3d spiral shape parameters
+if strcmp(mode, 'spoptim')  % optimize 3d spiral shape parameters
     pyfile = [p, '/arctanAD_sp3d.py'];
 else
     pyfile = [p, '/arctanAD.py'];
