@@ -31,10 +31,14 @@ def arctanLBFGS(
     # Set up: Interior mapping
     tρ, θ = mrphy.utils.rf2tρθ(pulse.rf, rfmax)
     #tsl = mrphy.utils.s2ts(mrphy.utils.g2s(pulse.gr, pulse.dt), smax)
-    #tsl = mrphy.utils.s2ts(mrphy.utils.g2s(pulse.gr, pulse.dt), smax)
 
     #c = tensor([0.4, 0.8, 4.2/2*1.2*25, 4.2/2*1.2*13, 1.0, 26, 1.5, 1.5, 0.9, 0.9])
-    c = tensor([0.4, 0.8, 1.3*25, 1.3*13, 1.0, 20, 1.5, 1.5, 0.9, 1.0])
+    c = tensor([0.02, 0.8]) # , 1.3*25, 1.3*13, 1.0, 20, 1.5, 1.5, 0.9, 1.1])
+
+    pulse_dur = 5.8
+    pulse_dt = (pulse.dt*1e3).item()        # ms
+
+    pulse.gr = sp3d.create(c, pulse_dur, pulse_dt)  # (1, 3, nt)
 
     # enforce contiguousness of optimization variables, o.w. LBFGS may fail
     #tρ, θ, tsl = tρ.contiguous(), θ.contiguous(), tsl.contiguous()
@@ -46,7 +50,7 @@ def arctanLBFGS(
                          line_search_fn='strong_wolfe')
 
     #opt_sl = optim.LBFGS([tsl], lr=3., max_iter=40, history_size=60,
-    opt_c = optim.LBFGS([c], lr=3., max_iter=2, history_size=8,
+    opt_c = optim.LBFGS([c], lr=3., max_iter=10, history_size=40,
                         tolerance_change=1e-6,
                         line_search_fn='strong_wolfe')
 
@@ -82,11 +86,10 @@ def arctanLBFGS(
         0.0, loss.item(), loss_err.item(), loss_pen.item())
 
     # Optimization
-    nt = pulse.gr.shape[2]
-    pulse_dur = (pulse.dt*1e3 * (nt+1)).item()  # ms (scalar)
-    pulse_dt = (pulse.dt*1e3).item()        # ms
     t0 = time()
     for i in range(niter):
+
+        print(f"{c}")
 
         if not (i % 5):
             print(log_col)
