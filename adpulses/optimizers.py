@@ -33,7 +33,7 @@ def arctanLBFGS(
     #tsl = mrphy.utils.s2ts(mrphy.utils.g2s(pulse.gr, pulse.dt), smax)
 
     #c = tensor([0.4, 0.8, 4.2/2*1.2*25, 4.2/2*1.2*13, 1.0, 26, 1.5, 1.5, 0.9, 0.9])
-    c = tensor([0.02, 0.8]) # , 1.3*25, 1.3*13, 1.0, 20, 1.5, 1.5, 0.9, 1.1])
+    c = tensor([0.4, 0.8]) # , 1.3*25, 1.3*13, 1.0, 20, 1.5, 1.5, 0.9, 1.1])
 
     pulse_dur = 5.8
     pulse_dt = (pulse.dt*1e3).item()        # ms
@@ -50,7 +50,7 @@ def arctanLBFGS(
                          line_search_fn='strong_wolfe')
 
     #opt_sl = optim.LBFGS([tsl], lr=3., max_iter=40, history_size=60,
-    opt_c = optim.LBFGS([c], lr=3., max_iter=10, history_size=40,
+    opt_c = optim.LBFGS([c], lr=1., max_iter=10, history_size=40,
                         tolerance_change=1e-6,
                         line_search_fn='strong_wolfe')
 
