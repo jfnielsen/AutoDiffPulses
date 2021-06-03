@@ -32,8 +32,10 @@ def arctanLBFGS(
     tρ, θ = mrphy.utils.rf2tρθ(pulse.rf, rfmax)
     #tsl = mrphy.utils.s2ts(mrphy.utils.g2s(pulse.gr, pulse.dt), smax)
 
+    # Initialize spiral shape parameters
     #c = tensor([0.4, 0.8, 4.2/2*1.2*25, 4.2/2*1.2*13, 1.0, 26, 1.5, 1.5, 0.9, 0.9])
-    c = tensor([0.1]) #, 0.8]) # , 1.3*25, 1.3*13, 1.0, 20, 1.5, 1.5, 0.9, 1.1])
+    c = tensor([0.15, 0.8, 1.6*25, 1.6*13, 1.0, 20, 1.5, 1.5, 0.9, 0.8])
+    c = tensor([0.8]) #, 0.8]) # , 1.3*25, 1.3*13, 1.0, 20, 1.5, 1.5, 0.9, 1.1])
 
     pulse_dur = 4  # 5.8
     pulse_dt = (pulse.dt*1e3).item()        # ms
@@ -50,7 +52,7 @@ def arctanLBFGS(
                          line_search_fn='strong_wolfe')
 
     #opt_sl = optim.LBFGS([tsl], lr=3., max_iter=40, history_size=60,
-    opt_c = optim.LBFGS([c], lr=3., max_iter=10, history_size=40,
+    opt_c = optim.LBFGS([c], lr=9., max_iter=40, history_size=80,
                         tolerance_change=1e-6,
                         line_search_fn='strong_wolfe')
     #opt_c = optim.SGD([c], lr=5e-6, momentum=0.9)
@@ -107,6 +109,8 @@ def arctanLBFGS(
             #print(f"{pulse.gr.shape}")
             pulse.gr = sp3d.create(c, pulse_dur, pulse_dt)  # (1, 3, nt)
             #print(f"{gr.shape}")
+
+            #print(f"{c}")
 
             loss_err, loss_pen = fn_loss(cube, pulse)
             loss = loss_err + eta*loss_pen
