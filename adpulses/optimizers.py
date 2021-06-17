@@ -37,7 +37,6 @@ def arctanLBFGS(
     c = tensor([0.4, 0.8, 1.6*25, 1.6*13, 1.0, 20, 1.5, 1.5, 0.9, 0.8])
     c = tensor([0.4, 0.9, 40, 20.8, 1.0, 20, 1.5, 1.5, 0.9, 0.8]) #, 0.8]) # , 1.3*25, 1.3*13, 1.0, 20, 1.5, 1.5, 0.9, 1.1])
     c = tensor([0.4, 0.9, 40.0, 20.8, 0.8]) #, 0.8]) # , 1.3*25, 1.3*13, 1.0, 20, 1.5, 1.5, 0.9, 1.1])
-    c = tensor([0.4, 0.9, 40., 20.8, 0.8]) #, 0.8]) # , 1.3*25, 1.3*13, 1.0, 20, 1.5, 1.5, 0.9, 1.1])
 
     #pulse_dur = 4  # 5.8
     #pulse_dt = (pulse.dt*1e3).item()        # ms
@@ -53,9 +52,10 @@ def arctanLBFGS(
     opt_rf = optim.LBFGS([tρ, θ], lr=3., max_iter=10, history_size=30,
                          tolerance_change=1e-4,
                          line_search_fn='strong_wolfe')
+    #opt_rf = optim.SGD([tρ, θ], lr=2e-6, momentum=0.9)
 
     #opt_sl = optim.LBFGS([tsl], lr=3., max_iter=40, history_size=60,
-    opt_c = optim.LBFGS([c], lr=1., max_iter=10, history_size=30,
+    opt_c = optim.LBFGS([c], lr=3., max_iter=20, history_size=40,
                         tolerance_change=1e-6,
                         line_search_fn='strong_wolfe')
     #opt_c = optim.SGD([c], lr=5e-6, momentum=0.9)
