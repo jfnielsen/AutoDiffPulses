@@ -38,10 +38,6 @@ def arctanLBFGS(
     c = tensor([0.4, 0.9, 40, 20.8, 1.0, 20, 1.5, 1.5, 0.9, 0.8]) #, 0.8]) # , 1.3*25, 1.3*13, 1.0, 20, 1.5, 1.5, 0.9, 1.1])
     c = tensor([0.4, 0.9, 40.0, 20.8, 0.8]) #, 0.8]) # , 1.3*25, 1.3*13, 1.0, 20, 1.5, 1.5, 0.9, 1.1])
 
-    #pulse_dur = 4  # 5.8
-    #pulse_dt = (pulse.dt*1e3).item()        # ms
-
-    # pulse.gr = sp3d.create(c, pulse_dur, pulse_dt, 300)  # (1, 3, nt)
     pulse.gr = sp3d.create(c)  # (1, 3, nt)
 
     # enforce contiguousness of optimization variables, o.w. LBFGS may fail
