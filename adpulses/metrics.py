@@ -45,6 +45,7 @@ def err_l2xy(Mr_: Tensor, Md_: Tensor, w_: Optional[Tensor] = None) -> Tensor:
     return err
 
 
+# hijacking ml2xy for prephasing problem
 def err_ml2xy(Mr_: Tensor, Md_: Tensor, w_: Optional[Tensor] = None) -> Tensor:
     """
     *INPUTS*
@@ -63,3 +64,5 @@ def err_ml2xy(Mr_: Tensor, Md_: Tensor, w_: Optional[Tensor] = None) -> Tensor:
     errcplx = (Me_ if w_ is None else Me_*w_[..., None]).norm()**2
     err = lam1 * errmag + lam2 * errcplx
     return err
+
+
