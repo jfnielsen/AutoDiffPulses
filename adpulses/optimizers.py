@@ -37,7 +37,6 @@ def arctanLBFGS(
     c = tensor([0.4, 0.8, 1.6*25, 1.6*13, 1.0, 20, 1.5, 1.5, 0.9, 0.8])
     c = tensor([0.4, 0.9, 40, 20.8, 1.0, 20, 1.5, 1.5, 0.9, 0.8]) #, 0.8]) # , 1.3*25, 1.3*13, 1.0, 20, 1.5, 1.5, 0.9, 1.1])
     c = tensor([0.4, 0.9, 40.0, 20.8, 0.8]) #, 0.8]) # , 1.3*25, 1.3*13, 1.0, 20, 1.5, 1.5, 0.9, 1.1])
-    c = tensor([1.2]) #, 0.8]) # , 1.3*25, 1.3*13, 1.0, 20, 1.5, 1.5, 0.9, 1.1])
 
     pulse.gr = sp3d.create(c)  # (1, 3, nt)
 
@@ -229,7 +228,7 @@ def arctanLBFGS_orig(
 
     def fn_loss(cube, pulse):
         Mr_ = cube.applypulse(pulse, b1Map_=b1Map_, doRelax=doRelax)
-        loss_err, loss_pen = fn_err(Mr_, Md_, w_=w_), fn_pen(pulse.rf)
+        loss_err, loss_pen = fn_err(Mr_, Md_, w_=w_), fn_pen(pulse.rf, pulse.gr)
         return loss_err, loss_pen
 
     log_col = '\n#iter\t ‖ elapsed time\t ‖ error\t ‖ penalty\t ‖ total loss'
