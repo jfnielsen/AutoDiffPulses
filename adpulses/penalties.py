@@ -20,12 +20,14 @@ def pen_l2_rf(rf: Tensor) -> Tensor:
 def pen_l2(rf: Tensor, g: Tensor) -> Tensor:
     gmax = 5    # G/cm
     smax = 20   # G/cm/ms
-    dt = 20e-3   # ms
+    dt = 10e-3   # ms
 
     a, b, c = 10.0, 1e-4, 1e-1  # loss term weights
 
     # RF energy penalty
-    pen_rf = torch.norm(rf)**2
+    standardPulse_energy = 1.3791e-5   # Energy of 1 ms hard 180 (Gauss^2*sec)
+    rf_energy = dt*1e-3 * torch.norm(rf)**2
+    pen_rf = torch.pow(rf_energy/standardPulse_energy, 8)
 
     # max gradient penalty (soft thresholding)
     pen_gmax_v = torch.pow(torch.relu(g.abs()-gmax), 2)
