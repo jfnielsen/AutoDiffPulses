@@ -27,13 +27,13 @@ def pen_l2(rf: Tensor, g: Tensor) -> Tensor:
     # RF energy penalty
     standardPulse_energy = 1.3791e-5   # Energy of 1 ms hard 180 (Gauss^2*sec)
     rf_energy = dt*1e-3 * torch.norm(rf)**2
-    pen_rf = torch.pow(rf_energy/standardPulse_energy, 8)
+    pen_rf = torch.pow(rf_energy/standardPulse_energy, 12)
 
     # the following runs but solver gets stuck after a few iterations 12/6/21
     #pen_rf = torch.relu(1e5*(rf_energy-standardPulse_energy))
     #pen_rf = torch.pow(1 + torch.relu(1e5*(rf_energy-standardPulse_energy)), 8)
 
-    # print(pen_rf, rf_energy)
+    #print(pen_rf, rf_energy)
 
     # max gradient penalty (soft thresholding)
     pen_gmax_v = torch.pow(torch.relu(g.abs()-gmax), 2)
