@@ -22,7 +22,7 @@ def pen_l2(rf: Tensor, g: Tensor) -> Tensor:
     smax = 20   # G/cm/ms
     dt = 10e-3   # ms
 
-    a, b, c = 10, 1e-4, 1e-1  # loss term weights
+    a, b, c = 3, 1e-4, 1e-1  # loss term weights
 
     # RF energy penalty
     standardPulse_energy = 1.3791e-5   # Energy of 1 ms hard 180 (Gauss^2*sec)
