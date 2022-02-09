@@ -199,7 +199,7 @@ def arctanLBFGS_orig(
     eta *= pulse.dt*1e6/4  # normalize eta by dt
     assert ((b1Map_ is None) or (b1Map is None))
     b1Map_ = (b1Map_ if b1Map is None else cube.extract(b1Map))
-    nc = (1 if b1Map_ is None else b1Map_.shape[3])
+    nc = 1 #(1 if b1Map_ is None else b1Map_.shape[3])
     # eta /= nc
 
     # Set up: Interior mapping

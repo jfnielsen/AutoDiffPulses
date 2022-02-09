@@ -41,9 +41,12 @@ if __name__ == "__main__":
 
     arg['doRelax'] = dflt_arg('doRelax', True, lambda k: bool(arg[k].item()))
 
-    b1Map = dflt_arg('b1Map', None, lambda k: f_t(f_c2r_np(arg[k], -2)))
+    b1Map = dflt_arg('b1Map', None, lambda k: f_t(f_c2r_np(arg[k], -1)))
     b1Map_ = dflt_arg('b1Map_', None, lambda k: f_t(f_c2r_np(arg[k], -2)))
     assert ((b1Map_ is None) or (b1Map is None))
+
+    print('b1Map.ndim: ', b1Map.ndim)
+    print('b1Map.shape: ', b1Map.shape)
 
     arg['b1Map_'] = (b1Map_ if b1Map is None else cube.extract(b1Map))
 
