@@ -56,7 +56,7 @@ def err_ml2xy(Mr_: Tensor, Md_: Tensor, w_: Optional[Tensor] = None) -> Tensor:
     *OUTPUTS*
     - `err` (1,)
     """
-    lam1 = 0.0 # 12/6/21: 1.0.  # mxy magnitude error weighting
+    lam1 = 10.0 # 12/6/21: 1.0.  # mxy magnitude error weighting
     lam2 = 20.0 # 12/6/21: 2.0   # mxy complex error weighting
     lam3 = 0.0                  # mz error weighting
 
