@@ -24,6 +24,8 @@ def pen_l2(rf: Tensor, g: Tensor) -> Tensor:
 
     a, b, c = 3, 1e-4, 1e-1  # loss term weights
 
+    #print('g.size(): ', g.size())
+
     # RF energy penalty
     standardPulse_energy = 1.3791e-5   # Energy of 1 ms hard 180 (Gauss^2*sec)
     rf_energy = dt*1e-3 * torch.norm(rf)**2
