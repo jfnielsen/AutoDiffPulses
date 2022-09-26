@@ -40,6 +40,10 @@ def arctanLBFGS(
     c = tensor([0.12, 0.8, 60.0, 50.0, 0.27]) # dur = 1.5ms
     c = tensor([0.12, 0.8, 60.0, 50.0, 0.0]) # dur = 1.5ms
     c = tensor([0.6]) # dur = 4 ms; optimize overall scaling only
+    c = tensor([0.3, 0.9]) # dur = 6 ms
+    c = tensor([0.3, 0.9, 0.8]) # dur = 6 ms
+    c = tensor([0.3, 0.9, 40.0, 20.8, 0.8]) # dur = 6 ms
+    c = tensor([0.8]) 
 
     pulse.gr = sp3d.create(c)  # (1, 3, nt)
 
