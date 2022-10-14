@@ -38,7 +38,7 @@ def pen_l2(rf: Tensor, g: Tensor) -> Tensor:
 
     #print(pen_rf, rf_energy)
 
-    # max gradient penalty (soft thresholding)
+    # peak gradient penalty (soft thresholding)
     pen_gmax_v = torch.pow(torch.relu(g.abs()-gmax), 2)
     pen_gmax = torch.sum(pen_gmax_v)
 
