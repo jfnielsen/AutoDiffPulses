@@ -57,8 +57,8 @@ def err_ml2xy(Mr_: Tensor, Md_: Tensor, w_: Optional[Tensor] = None) -> Tensor:
     *OUTPUTS*
     - `err` (1,)
     """
-    lam1 = 10.0 # 12/6/21: 1.0.  # mxy magnitude error weighting (enforce limits)
-    lam2 = 1.0 # 12/6/21: 2.0   # mxy complex error weighting
+    lam1 = 1e2 # 12/6/21: 1.0.  # mxy magnitude error weighting (enforce limits)
+    lam2 = 1e-2 # 12/6/21: 2.0   # mxy complex error weighting
     lam3 = 0.0                  # mz error weighting
     lam4 = 0.0                  # flip angle error weighting
 
@@ -68,7 +68,8 @@ def err_ml2xy(Mr_: Tensor, Md_: Tensor, w_: Optional[Tensor] = None) -> Tensor:
     #print('Me_.size(): ', Me_.size())
     #errmag = (Me_ if w_ is None else Me_*w_).norm()**2
     thresh = 0.2;  # max allowable difference in sin(flip)
-    errmag = (torch.relu((Me_.abs() - thresh)/thresh)).norm()**2
+    #errmag = (torch.relu((Me_.abs() - thresh)/thresh)).norm()**2
+    errmag = (Me_.abs()).norm()**2
 
     Me_ = (Mr_[..., :2] - Md_[..., :2])
     errcplx = (Me_ if w_ is None else Me_*w_[..., None]).norm()**2

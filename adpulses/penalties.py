@@ -23,7 +23,7 @@ def pen_l2(rf: Tensor, g: Tensor) -> Tensor:
     dt = 20e-3   # ms
 
     a, b, c = 3, 1e-4, 1e-1  # loss term weights
-    a, b, c = 1, 1, 1  # loss term weights
+    a, b, c = 1e1, 1, 1  # loss term weights
 
     #print('g.size(): ', g.size())
 
